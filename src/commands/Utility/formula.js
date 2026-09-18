@@ -1,9 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } from 'discord.js';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default {
     data: new SlashCommandBuilder()
@@ -33,7 +29,7 @@ export default {
             titleText = '📐 Additional Mathematics (0606) Formula Sheet';
         }
 
-        const filePath = path.join(__dirname, '../../assets/', fileName);
+        const filePath = path.resolve('src/assets', fileName);
         const fileAttachment = new AttachmentBuilder(filePath, { name: fileName });
 
         const embed = new EmbedBuilder()
