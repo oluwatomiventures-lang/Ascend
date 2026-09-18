@@ -10,8 +10,8 @@ module.exports = {
                 .setDescription('Select the subject formula sheet')
                 .setRequired(true)
                 .addChoices(
-                    { name: 'Additional Mathematics (0606)', value: 'addmaths' },
-                    { name: 'Mathematics (0580)', value: 'maths' }
+                    { name: 'Physics (0625)', value: 'physics' },
+                    { name: 'Additional Mathematics (0606)', value: 'addmaths' }
                 )),
 
     async execute(interaction) {
@@ -21,12 +21,12 @@ module.exports = {
         let fileName = '';
         let titleText = '';
 
-        if (subject === 'addmaths') {
+        if (subject === 'physics') {
+            fileName = 'physics_formulas.png';
+            titleText = '⚡ Physics (0625) Formula Sheet';
+        } else if (subject === 'addmaths') {
             fileName = 'addmaths_formulas.png';
             titleText = '📐 Additional Mathematics (0606) Formula Sheet';
-        } else if (subject === 'maths') {
-            fileName = 'maths_formulas.png';
-            titleText = '🔢 Mathematics (0580) Formula Sheet';
         }
 
         const filePath = path.join(__dirname, '../../assets/', fileName);
