@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 export default {
     data: new SlashCommandBuilder()
         .setName('formula')
-        .setDescription('Retrieve official ASCEND formula sheets')
+        .setDescription('Retrieve IGCSE STEM formula sheets')
         .addStringOption(option =>
             option.setName('subject')
                 .setDescription('Select the subject formula sheet')
@@ -39,7 +39,7 @@ export default {
         const embed = new EmbedBuilder()
             .setColor('#004BCE')
             .setTitle(titleText)
-            .setDescription('Here is your complete formula sheet. Save this for fast revision!')
+            .setDescription('Here is your quick formula sheet reference. Save this for fast revision!')
             .setImage(`attachment://${fileName}`)
             .setFooter({ text: 'ASCEND STEM | Logic-First Mastery' });
 
