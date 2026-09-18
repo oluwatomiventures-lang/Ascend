@@ -1,4 +1,9 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } from 'discord.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default {
     data: new SlashCommandBuilder()
@@ -17,26 +22,28 @@ export default {
         await interaction.deferReply();
         const subject = interaction.options.getString('subject');
 
-        let imageUrl = '';
+        let fileName = '';
         let titleText = '';
 
         if (subject === 'physics') {
-            // PASTE YOUR RAW PHYSICS IMAGE LINK BETWEEN THE QUOTES BELOW
-            imageUrl = 'https://raw.githubusercontent.com/oluwatomiventures-lang/Ascend/main/src/assets/physics_formulas.png';
+            fileName = 'physics_formulas.png';
             titleText = '⚡ Physics (0625) Formula Sheet';
         } else if (subject === 'addmaths') {
-            // PASTE YOUR RAW ADDMATHS IMAGE LINK BETWEEN THE QUOTES BELOW
-            imageUrl = 'https://raw.githubusercontent.com/oluwatomiventures-lang/Ascend/main/src/assets/addmaths_formulas.png';
+            fileName = 'addmaths_formulas.png';
             titleText = '📐 Additional Mathematics (0606) Formula Sheet';
         }
+
+        // Resolves path relative to src/assets
+        const filePath = path.resolve(__dirname, '../../assets', fileName);
+        const fileAttachment = new AttachmentBuilder(filePath, { name: fileName });
 
         const embed = new EmbedBuilder()
             .setColor('#004BCE')
             .setTitle(titleText)
             .setDescription('Here is your quick formula sheet reference. Save this for fast revision!')
-            .setImage(imageUrl)
+            .setImage(`attachment://${fileName}`)
             .setFooter({ text: 'ASCEND STEM | Logic-First Mastery' });
 
-        await interaction.editReply({ embeds: [embed] });
+        await interaction.editReply({ embeds: [embed], files: [fileAttachment] });
     },
 };
